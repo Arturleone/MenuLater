@@ -1,42 +1,49 @@
 package com.example.menu
 
+import android.annotation.SuppressLint
+import android.content.Intent
 import android.os.Bundle
+import android.view.MenuItem
+import android.widget.Button
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import com.google.android.material.navigation.NavigationView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
     private lateinit var drawerLayout: DrawerLayout
-    private lateinit var navigationView: NavigationView
-    private lateinit var fabOpenDrawer: FloatingActionButton
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView(R.layout.base)
 
-        drawerLayout = findViewById(R.id.drawer_layout)
-        navigationView = findViewById(R.id.nav_view)
-        fabOpenDrawer = findViewById(R.id.fab_open_drawer)
+        drawerLayout = findViewById<DrawerLayout>(R.id.drawer_layout)
+        val navView = findViewById<NavigationView>(R.id.nav_view)
+        navView.setNavigationItemSelectedListener(this)
 
-        fabOpenDrawer.setOnClickListener {
-            drawerLayout.open()
+
+        layoutInflater.inflate(R.layout.activity_main, findViewById(R.id.content_frame))
+        findViewById<FloatingActionButton>(R.id.botao)?.setOnClickListener {
+            drawerLayout.openDrawer(GravityCompat.START)
         }
+    }
 
-        navigationView.setNavigationItemSelectedListener { menuItem ->
-            when (menuItem.itemId) {
-                R.id.nav_home -> {
-                    // Handle the home action
-                    true
-                }
-                R.id.nav_settings -> {
-                    // Handle the settings action
-                    true
-                }
-                else -> false
+    override fun onNavigationItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.nav_home -> {
+                // Já está na tela principal
+            }
+
+            R.id.nav_home -> {
+            }
+
+            R.id.nav_settings -> {
             }
         }
+        drawerLayout.closeDrawer(GravityCompat.START)
+        return true
     }
 }
