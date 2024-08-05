@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
 import android.widget.Button
+import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
@@ -18,6 +19,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        enableEdgeToEdge()
         setContentView(R.layout.base)
 
         drawerLayout = findViewById<DrawerLayout>(R.id.drawer_layout)
@@ -34,13 +36,10 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.nav_home -> {
-                // Já está na tela principal
-            }
-
-            R.id.nav_home -> {
             }
 
             R.id.nav_settings -> {
+                startActivity(Intent(this, Settings::class.java))
             }
         }
         drawerLayout.closeDrawer(GravityCompat.START)
